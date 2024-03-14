@@ -26,7 +26,7 @@ class _TypeInputState extends State<TypeInput> {
 
   final FirestoreService = FirebaseFirestore.instance;
 
-  final Stream<QuerySnapshot> _petStream =
+  final Stream<QuerySnapshot> petStream =
       FirebaseFirestore.instance.collection('pet').snapshots();
 
   @override
