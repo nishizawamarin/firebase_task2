@@ -12,16 +12,27 @@ class TypeInput extends StatefulWidget {
   State<TypeInput> createState() => _TypeInputState();
 }
 
-enum TypeList { dog('犬'), cat('猫') ;
-  final String typeName;
-  const TypeList(this.typeName);}
-
+enum TypeList { dog, cat;
+  String get text {
+    switch (this){
+      case TypeList.dog:
+      return '犬';
+      case TypeList.cat:
+        return '猫';
+    }
+  }
+}
 TypeList _type = TypeList.dog;
 
-enum GenderList { male('オス'), female ('メス');
-  final String genderName;
-  const GenderList(this.genderName);}
-
+enum GenderList { male, female ;
+  String get text {
+    switch (this){
+      case GenderList.male:
+        return 'オス';
+      case GenderList.female:
+        return 'メス';
+    }
+  }}
 GenderList _gender = GenderList.male;
 
 class _TypeInputState extends State<TypeInput> {
@@ -35,6 +46,7 @@ class _TypeInputState extends State<TypeInput> {
 
   final Stream<QuerySnapshot> petStream =
       FirebaseFirestore.instance.collection('pet').snapshots();
+
 
   @override
   void dispose() {
