@@ -20,7 +20,6 @@ class _AmimaltypeState extends State<Amimaltype> {
 
   late Stream<QuerySnapshot> _dogpetStream = FirebaseFirestore.instance
       .collection('pet')
-      .orderBy('age', descending: false)
       .where('type', isEqualTo: '犬')
       .snapshots();
 
@@ -59,15 +58,143 @@ class _AmimaltypeState extends State<Amimaltype> {
                       switch (value) {
                         case 'dog':
                           _petStream = _dogpetStream;
+                          StreamBuilder<QuerySnapshot>(
+                            stream: _dogpetStream,
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData) {
+                                List<DocumentSnapshot> petsData =
+                                    snapshot.data!.docs;
+
+                                return ListView.separated(
+                                  itemCount: petsData.length,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    Map<String, dynamic> petData =
+                                        petsData[index].data()!
+                                            as Map<String, dynamic>;
+                                    return ListTile(
+                                      title: Text('名前：${petData['name']}'
+                                          '品種：${petData['breeds']}'
+                                          '性別：${petData['gender']}'
+                                          '年齢：${petData['age']}'),
+                                    );
+                                  },
+                                  separatorBuilder:
+                                      (BuildContext context, int index) =>
+                                          const Divider(),
+                                );
+                              } else {
+                                return const Center(
+                                  child: CircularProgressIndicator(),
+                                );
+                              }
+                            },
+                          );
                           break;
                         case 'cat':
                           _petStream = _catpetStream;
+                          StreamBuilder<QuerySnapshot>(
+                            stream: _catpetStream,
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData) {
+                                List<DocumentSnapshot> petsData =
+                                    snapshot.data!.docs;
+
+                                return ListView.separated(
+                                  itemCount: petsData.length,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    Map<String, dynamic> petData =
+                                    petsData[index].data()!
+                                    as Map<String, dynamic>;
+                                    return ListTile(
+                                      title: Text('名前：${petData['name']}'
+                                          '品種：${petData['breeds']}'
+                                          '性別：${petData['gender']}'
+                                          '年齢：${petData['age']}'),
+                                    );
+                                  },
+                                  separatorBuilder:
+                                      (BuildContext context, int index) =>
+                                  const Divider(),
+                                );
+                              } else {
+                                return const Center(
+                                  child: CircularProgressIndicator(),
+                                );
+                              }
+                            },
+                          );
                           break;
                         case 'ascending':
                           _petStream = _ageascendingpetStream;
+                          StreamBuilder<QuerySnapshot>(
+                            stream: _ageascendingpetStream,
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData) {
+                                List<DocumentSnapshot> petsData =
+                                    snapshot.data!.docs;
+
+                                return ListView.separated(
+                                  itemCount: petsData.length,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    Map<String, dynamic> petData =
+                                    petsData[index].data()!
+                                    as Map<String, dynamic>;
+                                    return ListTile(
+                                      title: Text('名前：${petData['name']}'
+                                          '品種：${petData['breeds']}'
+                                          '性別：${petData['gender']}'
+                                          '年齢：${petData['age']}'),
+                                    );
+                                  },
+                                  separatorBuilder:
+                                      (BuildContext context, int index) =>
+                                  const Divider(),
+                                );
+                              } else {
+                                return const Center(
+                                  child: CircularProgressIndicator(),
+                                );
+                              }
+                            },
+                          );
                           break;
                         case 'descending':
                           _petStream = _agedescendingpetStream;
+                          StreamBuilder<QuerySnapshot>(
+                            stream: _agedescendingpetStream,
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData) {
+                                List<DocumentSnapshot> petsData =
+                                    snapshot.data!.docs;
+
+                                return ListView.separated(
+                                  itemCount: petsData.length,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    Map<String, dynamic> petData =
+                                    petsData[index].data()!
+                                    as Map<String, dynamic>;
+                                    return ListTile(
+                                      title: Text('名前：${petData['name']}'
+                                          '品種：${petData['breeds']}'
+                                          '性別：${petData['gender']}'
+                                          '年齢：${petData['age']}'),
+                                    );
+                                  },
+                                  separatorBuilder:
+                                      (BuildContext context, int index) =>
+                                  const Divider(),
+                                );
+                              } else {
+                                return const Center(
+                                  child: CircularProgressIndicator(),
+                                );
+                              }
+                            },
+                          );
                           break;
                       }
                     });
@@ -119,7 +246,6 @@ class _AmimaltypeState extends State<Amimaltype> {
               child: CircularProgressIndicator(),
             );
           }
-          ;
         },
       ),
       floatingActionButton: FloatingActionButton(

@@ -12,11 +12,15 @@ class TypeInput extends StatefulWidget {
   State<TypeInput> createState() => _TypeInputState();
 }
 
-enum TypeList { dog, cat }
+enum TypeList { dog('犬'), cat('猫') ;
+  final String typeName;
+  const TypeList(this.typeName);}
 
 TypeList _type = TypeList.dog;
 
-enum GenderList { male, female }
+enum GenderList { male('オス'), female ('メス');
+  final String genderName;
+  const GenderList(this.genderName);}
 
 GenderList _gender = GenderList.male;
 
@@ -122,7 +126,9 @@ class _TypeInputState extends State<TypeInput> {
                     value: GenderList.male,
                     groupValue: _gender,
                     onChanged: (value) {
-                      _gender = value!;
+                      setState(() {
+                        _gender = value!;
+                      });
                     }),
               ),
               Expanded(
@@ -132,7 +138,9 @@ class _TypeInputState extends State<TypeInput> {
                     value: GenderList.female,
                     groupValue: _gender,
                     onChanged: (value) {
-                      _gender = value!;
+                      setState(() {
+                        _gender = value!;
+                      });
                     }),
               ),
             ],
@@ -154,7 +162,8 @@ class _TypeInputState extends State<TypeInput> {
           ElevatedButton(
             child: const Text('登録'),
             onPressed: () async {
-              await firestore.collection('pets').add({
+
+              await firestore.collection('pet').add({
                 'name': _namecontroller.text,
                 'type': _type.toString().split('.').last,
                 'breeds': _breedscontroller.text,
